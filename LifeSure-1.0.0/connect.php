@@ -1,5 +1,5 @@
 <?php
-	$host = "localhost";
+	$host = "bc.c72gkagsy1my.ap-southeast-2.rds.amazonaws.com";
 	$usr = "root";
 	$pwd =  "12345678";
 	$db = "bc";
