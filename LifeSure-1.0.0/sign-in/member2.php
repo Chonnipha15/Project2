@@ -217,7 +217,7 @@ session_start();
           </div>
           <button class="w-100 mb-2 btn btn-lg rounded-3 btn-primary" type="submit" name="Submit">Sign up</button>
           <div class="mt-4 text-center">
-          <a href='../LifeSure-1.0.0/index.php' class="btn btn-outline-secondary w-100 rounded-3">ย้อนกลับไปหน้าหลัก</a>
+          <a href='../index.php' class="btn btn-outline-secondary w-100 rounded-3">ย้อนกลับไปหน้าหลัก</a>
         </div>
         <div class="mt-4 text-center">
           <a href='./sign-in/index2.php' class="btn btn-outline-secondary w-100 rounded-3">เข้าสู่ระบบ</a>

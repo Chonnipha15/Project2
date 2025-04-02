@@ -221,7 +221,7 @@ session_start();
           <a href='./sign-in/member.php' class="btn btn-outline-secondary w-100 rounded-3">ลงทะเบียน</a>
         </div> 
           <div class="mt-4 text-center">
-          <a href='../LifeSure-1.0.0/index.php' class="btn btn-outline-secondary w-100 rounded-3">ย้อนกลับไปหน้าหลัก</a>
+          <a href='../index.php' class="btn btn-outline-secondary w-100 rounded-3">ย้อนกลับไปหน้าหลัก</a>
         </div>
         </form>
       </div>
@@ -240,7 +240,7 @@ session_start();
 				$_SESSION[ 'sid' ] = $data[ 's_id' ] ;
 				$_SESSION[ 'sname' ] = $data[ 's_name' ] ;
 				echo "<script>";
-				echo "window.location = '../LifeSure-1.0.0/indexstudent.php';";
+				echo "window.location = '../indexstudent.php';";
 				echo "</script>";
 			}else {
 				echo "<script>";

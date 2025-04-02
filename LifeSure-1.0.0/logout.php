@@ -7,6 +7,6 @@
 	
 	session_destroy();
 	echo "<script>";
-	echo "window.location='../LifeSure-1.0.0/index.php';";
+	echo "window.location='./index.php';";
 	echo "</script>";
 ?> 

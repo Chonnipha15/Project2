@@ -1,6 +1,6 @@
 <?php
     session_start();
-    include_once("../LifeSure-1.0.0/connect.php");
+    include_once("./connect.php");
 ?>
 <html lang="en">
     <head>
