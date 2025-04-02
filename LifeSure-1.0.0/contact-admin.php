@@ -264,10 +264,6 @@
                         // ตรวจสอบค่าที่ส่งมาว่ามีหรือไม่
                         if (!empty($_POST['mname']) && !empty($_POST['memail']) && !empty($_POST['mphone']) && !empty($_POST['mstatus']) && !empty($_POST['mmessage'])) {
 
-                            // ใช้ prepared statement เพื่อป้องกัน SQL Injection
-                            $stmt = $conn->prepare("INSERT INTO `mesage` (m_name, m_email, m_phone, m_status, m_subject, m_message) VALUES (?, ?, ?, ?, ?, ?)");
-                            $stmt->bind_param("ssssss", $mname, $memail, $mphone, $mstatus, $msubject, $mmessage);
-
                             // รับค่าจากฟอร์ม
                             $mname = $_POST['mname'];
                             $memail = $_POST['memail'];
@@ -275,6 +271,10 @@
                             $mstatus = $_POST['mstatus'];
                             $msubject = $_POST['msubject'];
                             $mmessage = $_POST['mmessage'];
+
+                            // ใช้ prepared statement เพื่อป้องกัน SQL Injection
+                            $stmt = $conn->prepare("INSERT INTO `mesage` (m_name, m_email, m_phone, m_status, m_subject, m_message) VALUES (?, ?, ?, ?, ?, ?)");
+                            $stmt->bind_param("ssssss", $mname, $memail, $mphone, $mstatus, $msubject, $mmessage);
 
                             // รันคำสั่ง SQL
                             if ($stmt->execute()) {
