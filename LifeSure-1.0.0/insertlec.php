@@ -1,5 +1,4 @@
 <?php
-    session_save_path("/tmp");
     session_start();
     include_once("connect.php");
     $sql1 = "SELECT * FROM `lecturer`" ;
@@ -198,54 +197,67 @@
    
 
 <?php
-include 'connect.php'; // เชื่อมต่อฐานข้อมูล
+session_start();
+include_once("connect.php"); // เชื่อมต่อฐานข้อมูล
 
-if (isset($_POST['Submit'])) {
-    $Lname = mysqli_real_escape_string($conn, $_POST['Lname']);
-    $Ltal = mysqli_real_escape_string($conn, $_POST['Ltal']);
-    $Lemail = mysqli_real_escape_string($conn, $_POST['Lemail']);
-    $Lteaching = mysqli_real_escape_string($conn, $_POST['Lteaching']);
-    $Lexper = mysqli_real_escape_string($conn, $_POST['Lexper']);
+if (!isset($_SESSION['aname'])) {
+    echo "<script>alert('กรุณาเข้าสู่ระบบก่อน'); window.location='login.php';</script>";
+    exit();
+}
 
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['Submit'])) {
+    $Lname = trim($_POST['Lname']);
+    $Ltal = trim($_POST['Ltal']);
+    $Lemail = trim($_POST['Lemail']);
+    $Lteaching = trim($_POST['Lteaching']);
+    $Lexper = trim($_POST['Lexper']);
+
+    // ตรวจสอบว่ามีการอัปโหลดไฟล์หรือไม่
     if (isset($_FILES['Limg']) && $_FILES['Limg']['error'] === UPLOAD_ERR_OK) {
-        $file_name = $_FILES['Limg']['name'];
         $file_tmp = $_FILES['Limg']['tmp_name'];
+        $file_name = $_FILES['Limg']['name'];
+        $file_size = $_FILES['Limg']['size'];
         $file_ext = strtolower(pathinfo($file_name, PATHINFO_EXTENSION));
         $allowed_ext = ['jpg', 'jpeg', 'png', 'gif'];
-
+        
+        // ตรวจสอบนามสกุลไฟล์และขนาด
         if (!in_array($file_ext, $allowed_ext)) {
-            die("ไฟล์ต้องเป็นรูปภาพประเภท JPG, JPEG, PNG หรือ GIF เท่านั้น");
+            die("<script>alert('ไฟล์ต้องเป็น JPG, PNG หรือ GIF เท่านั้น'); window.history.back();</script>");
+        }
+        if ($file_size > 2 * 1024 * 1024) { // จำกัดขนาด 2MB
+            die("<script>alert('ขนาดไฟล์ต้องไม่เกิน 2MB'); window.history.back();</script>");
         }
 
-        // เพิ่มข้อมูลลงในฐานข้อมูล โดยยังไม่ใส่ชื่อไฟล์รูป
-        $sql = "INSERT INTO `lecturer` (`L_name`, `L_tal`, `L_email`, `L_teaching`, `L_exper`, `L_img`) 
-                VALUES ('$Lname', '$Ltal', '$Lemail', '$Lteaching', '$Lexper', '')";
+        // ใช้ Prepared Statements ป้องกัน SQL Injection
+        $stmt = $conn->prepare("INSERT INTO lecturer (L_name, L_tal, L_email, L_teaching, L_exper, L_img) 
+                                VALUES (?, ?, ?, ?, ?, '')");
+        $stmt->bind_param("sssss", $Lname, $Ltal, $Lemail, $Lteaching, $Lexper);
 
-        if (mysqli_query($conn, $sql)) {
-            $idauto = mysqli_insert_id($conn);
+        if ($stmt->execute()) {
+            $idauto = $stmt->insert_id;
             $new_file_name = "image1/" . $idauto . "." . $file_ext;
 
-            // อัปโหลดรูปภาพ
             if (move_uploaded_file($file_tmp, $new_file_name)) {
-                // อัปเดตฐานข้อมูลให้มีชื่อไฟล์รูปภาพที่ถูกต้อง
-                $update_sql = "UPDATE `lecturer` SET `L_img`='$new_file_name' WHERE `L_id`='$idauto'";
-                mysqli_query($conn, $update_sql);
+                // อัปเดตชื่อไฟล์รูปภาพลงในฐานข้อมูล
+                $update_stmt = $conn->prepare("UPDATE lecturer SET L_img=? WHERE L_id=?");
+                $update_stmt->bind_param("si", $new_file_name, $idauto);
+                $update_stmt->execute();
 
                 echo "<script>alert('เพิ่มข้อมูลอาจารย์สำเร็จ'); window.location='lecturer.php';</script>";
             } else {
-                echo "เกิดข้อผิดพลาดในการอัปโหลดรูปภาพ";
+                echo "<script>alert('เกิดข้อผิดพลาดในการอัปโหลดรูปภาพ'); window.history.back();</script>";
             }
         } else {
-            echo "เกิดข้อผิดพลาดในการบันทึกข้อมูล: " . mysqli_error($conn);
+            echo "<script>alert('เกิดข้อผิดพลาดในการบันทึกข้อมูล'); window.history.back();</script>";
         }
+        $stmt->close();
     } else {
-        echo "กรุณาอัปโหลดรูปภาพ";
+        echo "<script>alert('กรุณาอัปโหลดรูปภาพ'); window.history.back();</script>";
     }
 }
 
-mysqli_close($conn);
+$conn->close();
 ?>
-
 
 
         <!-- Footer Start -->
