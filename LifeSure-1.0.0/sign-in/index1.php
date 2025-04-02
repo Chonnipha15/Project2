@@ -218,7 +218,7 @@ session_start();
           </div>
           <button class="w-100 mb-2 btn btn-lg rounded-3 btn-primary" type="submit" name="Submit">Sign in</button> 
           <div class="mt-4 text-center">
-          <a href='./sign-in/member1.php' class="btn btn-outline-secondary w-100 rounded-3">ลงทะเบียน</a>
+          <a href='./member1.php' class="btn btn-outline-secondary w-100 rounded-3">ลงทะเบียน</a>
         </div>
           <div class="mt-4 text-center">
           <a href='../index.php' class="btn btn-outline-secondary w-100 rounded-3">ย้อนกลับไปหน้าหลัก</a>
