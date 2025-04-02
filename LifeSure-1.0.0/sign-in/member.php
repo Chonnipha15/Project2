@@ -4,7 +4,7 @@ session_start();
 ?>
 <!doctype html>
 <html lang="en" data-bs-theme="auto">
-  <head><script src="../assets/js/color-modes.js"></script>
+  <head><script src="./assets/js/color-modes.js"></script>
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -19,7 +19,7 @@ session_start();
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3">
 
-<link href="../assets/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="./assets/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <style>
       .bd-placeholder-img {
@@ -198,21 +198,21 @@ session_start();
   <form method="post" action="">
         <center>
       <img src="image/1.jpg" class="rounded-circle" width="60" height="60"> <br>
-    <h1 class="h3 mb-3 fw-normal">ลงทะเบียนสมาชิก-แอดมิน</h1>
+    <h1 class="h3 mb-3 fw-normal">ลงทะเบียนสมาชิก-นิสิต</h1>
     
 
       <div class="modal-body p-5 pt-0">
         <form class="">
         <div class="form-floating mb-3">
-            <input type="name" class="form-control" name="aname" placeholder="Name" autofocus required>
+            <input type="name" class="form-control" name="sname" placeholder="Name" autofocus required>
             <label for="floatingInput">Name</label>
           </div>
           <div class="form-floating mb-3">
-            <input type="email" class="form-control" name="aemail" placeholder="Email" autofocus required>
+            <input type="email" class="form-control" name="semail" placeholder="Email" autofocus required>
             <label for="floatingInput">Email address</label>
           </div>
           <div class="form-floating mb-3">
-          <input type="password" class="form-control" name="apassword" placeholder="Password" autofocus required>
+          <input type="password" class="form-control" name="spassword" placeholder="Password" autofocus required>
             <label for="floatingPassword">Password</label>
           </div>
           <button class="w-100 mb-2 btn btn-lg rounded-3 btn-primary" type="submit" name="Submit">Sign up</button>
@@ -220,7 +220,7 @@ session_start();
           <a href='../LifeSure-1.0.0/index.php' class="btn btn-outline-secondary w-100 rounded-3">ย้อนกลับไปหน้าหลัก</a>
         </div>
         <div class="mt-4 text-center">
-          <a href='../sign-in/index2.php' class="btn btn-outline-secondary w-100 rounded-3">เข้าสู่ระบบ</a>
+          <a href='./sign-in/index.php' class="btn btn-outline-secondary w-100 rounded-3">เข้าสู่ระบบ</a>
         </div>
         </form>
       </div>
@@ -229,7 +229,7 @@ session_start();
 </div>
 <?php	
 	include_once("connect.php");
-	$sql = "SELECT * FROM `adminn` ORDER BY a_id ASC ";
+	$sql = "SELECT * FROM `student` ORDER BY s_id ASC ";
 	$rs = mysqli_query($conn, $sql) ;
 	while ($data = mysqli_fetch_array($rs) ){
 	?>
@@ -237,17 +237,17 @@ session_start();
 <?php } ?>
 <?php
 if (isset($_POST['Submit'])) {
-    $file_name = $_FILES['aemail']['name'];
+    $file_name = $_FILES['semail']['name'];
     $ext = substr($file_name, strpos($file_name, '.') + 1);
 
     // แปลงรหัสผ่านเป็น MD5 ก่อนเก็บในฐานข้อมูล
-    $hashed_password = md5($_POST['apassword']);
+    $hashed_password = md5($_POST['spassword']);
 
     // คำสั่ง SQL สำหรับเพิ่มข้อมูลลงฐานข้อมูล
-    $sql = "INSERT INTO `adminn` 
-            SET `a_name` = '{$_POST['aname']}',
-                `a_email` = '{$_POST['aemail']}',
-                `a_password` = '{$hashed_password}'";
+    $sql = "INSERT INTO `student` 
+            SET `s_name` = '{$_POST['sname']}',
+                `s_email` = '{$_POST['semail']}',
+                `s_password` = '{$hashed_password}'";
 
     // รันคำสั่ง SQL
     if (mysqli_query($conn, $sql)) {
@@ -256,7 +256,7 @@ if (isset($_POST['Submit'])) {
         // แจ้งเตือนสำเร็จและเปลี่ยนหน้า
         echo "<script>";
         echo "alert('ลงทะเบียนสำเร็จ กรุณากดปุ่มเข้าสู่ระบบ');";
-        echo "window.location='member2.php';";
+        echo "window.location='member.php';";
         echo "</script>";
     } else {
         // แจ้งเตือนกรณีมีข้อผิดพลาด
@@ -271,7 +271,7 @@ if (isset($_POST['Submit'])) {
 <?php	
 	mysqli_close($conn);
 ?>
-<script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
+<script src="./assets/dist/js/bootstrap.bundle.min.js"></script>
     </body>
 </html>
 

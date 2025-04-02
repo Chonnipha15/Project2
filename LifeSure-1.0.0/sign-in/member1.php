@@ -4,7 +4,7 @@ session_start();
 ?>
 <!doctype html>
 <html lang="en" data-bs-theme="auto">
-  <head><script src="../assets/js/color-modes.js"></script>
+  <head><script src="./assets/js/color-modes.js"></script>
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -19,7 +19,7 @@ session_start();
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3">
 
-<link href="../assets/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="./assets/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <style>
       .bd-placeholder-img {
@@ -198,11 +198,15 @@ session_start();
   <form method="post" action="">
         <center>
       <img src="image/1.jpg" class="rounded-circle" width="60" height="60"> <br>
-    <h1 class="h3 mb-3 fw-normal">เข้าสู่ระบบ-อาจารย์</h1>
+    <h1 class="h3 mb-3 fw-normal">ลงทะเบียนสมาชิก-อาจารย์</h1>
     
 
       <div class="modal-body p-5 pt-0">
         <form class="">
+        <div class="form-floating mb-3">
+            <input type="name" class="form-control" name="tname" placeholder="Name" autofocus required>
+            <label for="floatingInput">Name</label>
+          </div>
           <div class="form-floating mb-3">
             <input type="email" class="form-control" name="temail" placeholder="Email" autofocus required>
             <label for="floatingInput">Email address</label>
@@ -210,47 +214,64 @@ session_start();
           <div class="form-floating mb-3">
           <input type="password" class="form-control" name="tpassword" placeholder="Password" autofocus required>
             <label for="floatingPassword">Password</label>
-            <div class="form-check text-start my-3">
-      <input class="form-check-input" type="checkbox" value="remember-me" id="flexCheckDefault">
-      <label class="form-check-label" for="flexCheckDefault">
-        Remember me
-      </label>
           </div>
-          <button class="w-100 mb-2 btn btn-lg rounded-3 btn-primary" type="submit" name="Submit">Sign in</button> 
-          <div class="mt-4 text-center">
-          <a href='../sign-in/member1.php' class="btn btn-outline-secondary w-100 rounded-3">ลงทะเบียน</a>
-        </div>
+          <button class="w-100 mb-2 btn btn-lg rounded-3 btn-primary" type="submit" name="Submit">Sign up</button>
           <div class="mt-4 text-center">
           <a href='../LifeSure-1.0.0/index.php' class="btn btn-outline-secondary w-100 rounded-3">ย้อนกลับไปหน้าหลัก</a>
+        </div>
+        <div class="mt-4 text-center">
+          <a href='./sign-in/index1.php' class="btn btn-outline-secondary w-100 rounded-3">เข้าสู่ระบบ</a>
         </div>
         </form>
       </div>
     </div>
   </div>
 </div>
-
+<?php	
+	include_once("connect.php");
+	$sql = "SELECT * FROM `teacher` ORDER BY t_id ASC ";
+	$rs = mysqli_query($conn, $sql) ;
+	while ($data = mysqli_fetch_array($rs) ){
+	?>
+    	
+<?php } ?>
 <?php
-		if(isset($_POST['Submit'])){
-			$sql = "SELECT * FROM `teacher` WHERE `t_email`='{$_POST['temail']}'AND t_password='".md5($_POST['tpassword'])."'";
-			$rs = mysqli_query($conn, $sql);
-			$num = mysqli_num_rows($rs);
-			
-			if ($num > 0){
-				$data = mysqli_fetch_array($rs) ;
-				$_SESSION[ 'tid' ] = $data[ 't_id' ] ;
-				$_SESSION[ 'tname' ] = $data[ 't_name' ] ;
-				echo "<script>";
-				echo "window.location = '../LifeSure-1.0.0/indexlec.php';";
-				echo "</script>";
-			}else {
-				echo "<script>";
-				echo "alert('Email หรือ Password ไม่ถูกต้อง');";
-				echo "</script>";
-				exit;
-			}
+if (isset($_POST['Submit'])) {
+    $file_name = $_FILES['temail']['name'];
+    $ext = substr($file_name, strpos($file_name, '.') + 1);
+
+    // แปลงรหัสผ่านเป็น MD5 ก่อนเก็บในฐานข้อมูล
+    $hashed_password = md5($_POST['tpassword']);
+
+    // คำสั่ง SQL สำหรับเพิ่มข้อมูลลงฐานข้อมูล
+    $sql = "INSERT INTO `teacher`
+            SET `t_name` = '{$_POST['tname']}',
+                `t_email` = '{$_POST['temail']}',
+                `t_password` = '{$hashed_password}'";
+
+    // รันคำสั่ง SQL
+    if (mysqli_query($conn, $sql)) {
+        $idauto = mysqli_insert_id($conn);
+
+        // แจ้งเตือนสำเร็จและเปลี่ยนหน้า
+        echo "<script>";
+        echo "alert('ลงทะเบียนสำเร็จ กรุณากดปุ่มเข้าสู่ระบบ');";
+        echo "window.location='member1.php';";
+        echo "</script>";
+    } else {
+        // แจ้งเตือนกรณีมีข้อผิดพลาด
+        echo "<script>";
+        echo "alert('ลงทะเบียนไม่สำเร็จ กรุณาลองใหม่อีกครั้ง');";
+        echo "</script>";
+    }
 }
+
 ?>
-<script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
+
+<?php	
+	mysqli_close($conn);
+?>
+<script src="./assets/dist/js/bootstrap.bundle.min.js"></script>
     </body>
 </html>
 
