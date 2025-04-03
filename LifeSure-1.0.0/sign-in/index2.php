@@ -1,4 +1,7 @@
 <?php
+error_reporting(0);
+?>
+<?php
 session_start();
 		include_once("connect.php");
 ?>
@@ -198,15 +201,11 @@ session_start();
   <form method="post" action="">
         <center>
       <img src="image/1.jpg" class="rounded-circle" width="60" height="60"> <br>
-    <h1 class="h3 mb-3 fw-normal">ลงทะเบียนสมาชิก-แอดมิน</h1>
+    <h1 class="h3 mb-3 fw-normal">เข้าสู่ระบบ-แอดมิน</h1>
     
 
       <div class="modal-body p-5 pt-0">
         <form class="">
-        <div class="form-floating mb-3">
-            <input type="name" class="form-control" name="aname" placeholder="Name" autofocus required>
-            <label for="floatingInput">Name</label>
-          </div>
           <div class="form-floating mb-3">
             <input type="email" class="form-control" name="aemail" placeholder="Email" autofocus required>
             <label for="floatingInput">Email address</label>
@@ -214,62 +213,46 @@ session_start();
           <div class="form-floating mb-3">
           <input type="password" class="form-control" name="apassword" placeholder="Password" autofocus required>
             <label for="floatingPassword">Password</label>
+            <div class="form-check text-start my-3">
+      <input class="form-check-input" type="checkbox" value="remember-me" id="flexCheckDefault">
+      <label class="form-check-label" for="flexCheckDefault">
+        Remember me
+      </label>
           </div>
-          <button class="w-100 mb-2 btn btn-lg rounded-3 btn-primary" type="submit" name="Submit">Sign up</button>
+          <button class="w-100 mb-2 btn btn-lg rounded-3 btn-primary" type="submit" name="Submit">Sign in</button>
           <div class="mt-4 text-center">
-          <a href='../LifeSure-1.0.0/index.php' class="btn btn-outline-secondary w-100 rounded-3">ย้อนกลับไปหน้าหลัก</a>
+          <a href='./member2.php' class="btn btn-outline-secondary w-100 rounded-3">ลงทะเบียน</a>
         </div>
-        <div class="mt-4 text-center">
-          <a href='../sign-in/index2.php' class="btn btn-outline-secondary w-100 rounded-3">เข้าสู่ระบบ</a>
+          <div class="mt-4 text-center">
+          <a href='../index.php' class="btn btn-outline-secondary w-100 rounded-3">ย้อนกลับไปหน้าหลัก</a>
         </div>
         </form>
       </div>
     </div>
   </div>
 </div>
-<?php	
-	include_once("connect.php");
-	$sql = "SELECT * FROM `adminn` ORDER BY a_id ASC ";
-	$rs = mysqli_query($conn, $sql) ;
-	while ($data = mysqli_fetch_array($rs) ){
-	?>
-    	
-<?php } ?>
+
 <?php
-if (isset($_POST['Submit'])) {
-    $file_name = $_FILES['aemail']['name'];
-    $ext = substr($file_name, strpos($file_name, '.') + 1);
+		if(isset($_POST['Submit'])){
+			$sql = "SELECT * FROM `adminn` WHERE `a_email`='{$_POST['aemail']}' AND a_password='".md5($_POST['apassword'])."'";
 
-    // แปลงรหัสผ่านเป็น MD5 ก่อนเก็บในฐานข้อมูล
-    $hashed_password = md5($_POST['apassword']);
-
-    // คำสั่ง SQL สำหรับเพิ่มข้อมูลลงฐานข้อมูล
-    $sql = "INSERT INTO `adminn` 
-            SET `a_name` = '{$_POST['aname']}',
-                `a_email` = '{$_POST['aemail']}',
-                `a_password` = '{$hashed_password}'";
-
-    // รันคำสั่ง SQL
-    if (mysqli_query($conn, $sql)) {
-        $idauto = mysqli_insert_id($conn);
-
-        // แจ้งเตือนสำเร็จและเปลี่ยนหน้า
-        echo "<script>";
-        echo "alert('ลงทะเบียนสำเร็จ กรุณากดปุ่มเข้าสู่ระบบ');";
-        echo "window.location='member2.php';";
-        echo "</script>";
-    } else {
-        // แจ้งเตือนกรณีมีข้อผิดพลาด
-        echo "<script>";
-        echo "alert('ลงทะเบียนไม่สำเร็จ กรุณาลองใหม่อีกครั้ง');";
-        echo "</script>";
-    }
+			$rs = mysqli_query($conn, $sql);
+			$num = mysqli_num_rows($rs);
+			
+			if ($num > 0){
+				$data = mysqli_fetch_array($rs) ;
+				$_SESSION[ 'aid' ] = $data[ 'a_id' ] ;
+				$_SESSION[ 'aname' ] = $data[ 'a_name' ] ;
+				echo "<script>";
+				echo "window.location = '../indexadmin.php';";
+				echo "</script>";
+			}else {
+				echo "<script>";
+				echo "alert('Email หรือ Password ไม่ถูกต้อง');";
+				echo "</script>";
+				exit;
+			}
 }
-
-?>
-
-<?php	
-	mysqli_close($conn);
 ?>
 <script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
     </body>

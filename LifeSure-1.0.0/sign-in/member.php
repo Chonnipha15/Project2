@@ -198,11 +198,15 @@ session_start();
   <form method="post" action="">
         <center>
       <img src="image/1.jpg" class="rounded-circle" width="60" height="60"> <br>
-    <h1 class="h3 mb-3 fw-normal">เข้าสู่ระบบ-นิสิต</h1>
+    <h1 class="h3 mb-3 fw-normal">ลงทะเบียนสมาชิก-นิสิต</h1>
     
 
       <div class="modal-body p-5 pt-0">
         <form class="">
+        <div class="form-floating mb-3">
+            <input type="name" class="form-control" name="sname" placeholder="Name" autofocus required>
+            <label for="floatingInput">Name</label>
+          </div>
           <div class="form-floating mb-3">
             <input type="email" class="form-control" name="semail" placeholder="Email" autofocus required>
             <label for="floatingInput">Email address</label>
@@ -210,45 +214,62 @@ session_start();
           <div class="form-floating mb-3">
           <input type="password" class="form-control" name="spassword" placeholder="Password" autofocus required>
             <label for="floatingPassword">Password</label>
-            <div class="form-check text-start my-3">
-      <input class="form-check-input" type="checkbox" value="remember-me" id="flexCheckDefault">
-      <label class="form-check-label" for="flexCheckDefault">
-        Remember me
-      </label>
           </div>
-          <button class="w-100 mb-2 btn btn-lg rounded-3 btn-primary" type="submit" name="Submit">Sign in</button>
+          <button class="w-100 mb-2 btn btn-lg rounded-3 btn-primary" type="submit" name="Submit">Sign up</button>
           <div class="mt-4 text-center">
-          <a href='../sign-in/member.php' class="btn btn-outline-secondary w-100 rounded-3">ลงทะเบียน</a>
-        </div> 
-          <div class="mt-4 text-center">
-          <a href='../LifeSure-1.0.0/index.php' class="btn btn-outline-secondary w-100 rounded-3">ย้อนกลับไปหน้าหลัก</a>
+          <a href='../index.php' class="btn btn-outline-secondary w-100 rounded-3">ย้อนกลับไปหน้าหลัก</a>
+        </div>
+        <div class="mt-4 text-center">
+          <a href='./index.php' class="btn btn-outline-secondary w-100 rounded-3">เข้าสู่ระบบ</a>
         </div>
         </form>
       </div>
     </div>
   </div>
 </div>
-
+<?php	
+	include_once("connect.php");
+	$sql = "SELECT * FROM `student` ORDER BY s_id ASC ";
+	$rs = mysqli_query($conn, $sql) ;
+	while ($data = mysqli_fetch_array($rs) ){
+	?>
+    	
+<?php } ?>
 <?php
-		if(isset($_POST['Submit'])){
-			$sql = "SELECT * FROM `student` WHERE `s_email`='{$_POST['semail']}'AND S_password='".md5($_POST['spassword'])."'";
-			$rs = mysqli_query($conn, $sql);
-			$num = mysqli_num_rows($rs);
-			
-			if ($num > 0){
-				$data = mysqli_fetch_array($rs) ;
-				$_SESSION[ 'sid' ] = $data[ 's_id' ] ;
-				$_SESSION[ 'sname' ] = $data[ 's_name' ] ;
-				echo "<script>";
-				echo "window.location = '../LifeSure-1.0.0/indexstudent.php';";
-				echo "</script>";
-			}else {
-				echo "<script>";
-				echo "alert('Email หรือ Password ไม่ถูกต้อง');";
-				echo "</script>";
-				exit;
-			}
+if (isset($_POST['Submit'])) {
+    $file_name = $_FILES['semail']['name'];
+    $ext = substr($file_name, strpos($file_name, '.') + 1);
+
+    // แปลงรหัสผ่านเป็น MD5 ก่อนเก็บในฐานข้อมูล
+    $hashed_password = md5($_POST['spassword']);
+
+    // คำสั่ง SQL สำหรับเพิ่มข้อมูลลงฐานข้อมูล
+    $sql = "INSERT INTO `student` 
+            SET `s_name` = '{$_POST['sname']}',
+                `s_email` = '{$_POST['semail']}',
+                `s_password` = '{$hashed_password}'";
+
+    // รันคำสั่ง SQL
+    if (mysqli_query($conn, $sql)) {
+        $idauto = mysqli_insert_id($conn);
+
+        // แจ้งเตือนสำเร็จและเปลี่ยนหน้า
+        echo "<script>";
+        echo "alert('ลงทะเบียนสำเร็จ กรุณากดปุ่มเข้าสู่ระบบ');";
+        echo "window.location='member.php';";
+        echo "</script>";
+    } else {
+        // แจ้งเตือนกรณีมีข้อผิดพลาด
+        echo "<script>";
+        echo "alert('ลงทะเบียนไม่สำเร็จ กรุณาลองใหม่อีกครั้ง');";
+        echo "</script>";
+    }
 }
+
+?>
+
+<?php	
+	mysqli_close($conn);
 ?>
 <script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
     </body>

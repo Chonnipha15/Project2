@@ -1,3 +1,7 @@
+<?php
+session_start();
+		include_once("connect.php");
+?>
 <!doctype html>
 <html lang="en" data-bs-theme="auto">
   <head><script src="../assets/js/color-modes.js"></script>
@@ -35,10 +39,10 @@
       .b-example-divider {
         width: 100%;
         height: 3rem;
-        background-color: rgba(0, 0, 0, .1);
-        border: solid rgba(0, 0, 0, .15);
+        background-color: rgba(251, 249, 249, 0.98);
+        border: solid rgba(252, 243, 243, 0.96);
         border-width: 1px 0;
-        box-shadow: inset 0 .5em 1.5em rgba(0, 0, 0, .1), inset 0 .125em .5em rgba(0, 0, 0, .15);
+        box-shadow: inset 0 .5em 1.5em rgba(255, 248, 248, 0.99), inset 0 .125em .5em rgba(0, 0, 0, .15);
       }
 
       .b-example-vr {
@@ -180,122 +184,94 @@
   </symbol>
 </svg>
 
-<div class="modal modal-sheet position-static d-block bg-body-secondary p-4 py-md-5" tabindex="-1" role="dialog" id="modalSheet">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content rounded-4 shadow">
-      <div class="modal-header border-bottom-0">
-        <h1 class="modal-title fs-5">Modal title</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body py-0">
-        <p>This is a modal sheet, a variation of the modal that docs itself to the bottom of the viewport like the newer share sheets in iOS.</p>
-      </div>
-      <div class="modal-footer flex-column align-items-stretch w-100 gap-2 pb-3 border-top-0">
-        <button type="button" class="btn btn-lg btn-primary">Save changes</button>
-        <button type="button" class="btn btn-lg btn-secondary" data-bs-dismiss="modal">Close</button>
-      </div>
-    </div>
-  </div>
-</div>
 
-<div class="b-example-divider"></div>
-
-<div class="modal modal-sheet position-static d-block bg-body-secondary p-4 py-md-5" tabindex="-1" role="dialog" id="modalChoice">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content rounded-3 shadow">
-      <div class="modal-body p-4 text-center">
-        <h5 class="mb-0">Enable this setting?</h5>
-        <p class="mb-0">You can always change your mind in your account settings.</p>
-      </div>
-      <div class="modal-footer flex-nowrap p-0">
-        <button type="button" class="btn btn-lg btn-link fs-6 text-decoration-none col-6 py-3 m-0 rounded-0 border-end"><strong>Yes, enable</strong></button>
-        <button type="button" class="btn btn-lg btn-link fs-6 text-decoration-none col-6 py-3 m-0 rounded-0" data-bs-dismiss="modal">No thanks</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="b-example-divider"></div>
-
-<div class="modal modal-sheet position-static d-block bg-body-secondary p-4 py-md-5" tabindex="-1" role="dialog" id="modalTour">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content rounded-4 shadow">
-      <div class="modal-body p-5">
-        <h2 class="fw-bold mb-0">What's new</h2>
-
-        <ul class="d-grid gap-4 my-5 list-unstyled small">
-          <li class="d-flex gap-4">
-            <svg class="bi text-body-secondary flex-shrink-0" width="48" height="48"><use xlink:href="#grid-fill"/></svg>
-            <div>
-              <h5 class="mb-0">Grid view</h5>
-              Not into lists? Try the new grid view.
-            </div>
-          </li>
-          <li class="d-flex gap-4">
-            <svg class="bi text-warning flex-shrink-0" width="48" height="48"><use xlink:href="#bookmark-star"/></svg>
-            <div>
-              <h5 class="mb-0">Bookmarks</h5>
-              Save items you love for easy access later.
-            </div>
-          </li>
-          <li class="d-flex gap-4">
-            <svg class="bi text-primary flex-shrink-0" width="48" height="48"><use xlink:href="#film"/></svg>
-            <div>
-              <h5 class="mb-0">Video embeds</h5>
-              Share videos wherever you go.
-            </div>
-          </li>
-        </ul>
-        <button type="button" class="btn btn-lg btn-primary mt-5 w-100" data-bs-dismiss="modal">Great, thanks!</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="b-example-divider"></div>
 
 <div class="modal modal-sheet position-static d-block bg-body-secondary p-4 py-md-5" tabindex="-1" role="dialog" id="modalSignin">
   <div class="modal-dialog" role="document">
     <div class="modal-content rounded-4 shadow">
       <div class="modal-header p-5 pb-4 border-bottom-0">
-        <h1 class="fw-bold mb-0 fs-2">Sign up for free</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
+      <div class="container">
+      <link href="signin.css" rel="stylesheet">
+  </head>
+  <body class="text-center">
+<main class="form-signin w-100 m-auto">
+  <form method="post" action="">
+        <center>
+      <img src="image/1.jpg" class="rounded-circle" width="60" height="60"> <br>
+    <h1 class="h3 mb-3 fw-normal">ลงทะเบียนสมาชิก-แอดมิน</h1>
+    
 
       <div class="modal-body p-5 pt-0">
         <form class="">
+        <div class="form-floating mb-3">
+            <input type="name" class="form-control" name="aname" placeholder="Name" autofocus required>
+            <label for="floatingInput">Name</label>
+          </div>
           <div class="form-floating mb-3">
-            <input type="email" class="form-control rounded-3" id="floatingInput" placeholder="name@example.com">
+            <input type="email" class="form-control" name="aemail" placeholder="Email" autofocus required>
             <label for="floatingInput">Email address</label>
           </div>
           <div class="form-floating mb-3">
-            <input type="password" class="form-control rounded-3" id="floatingPassword" placeholder="Password">
+          <input type="password" class="form-control" name="apassword" placeholder="Password" autofocus required>
             <label for="floatingPassword">Password</label>
           </div>
-          <button class="w-100 mb-2 btn btn-lg rounded-3 btn-primary" type="submit">Sign up</button>
-          <small class="text-body-secondary">By clicking Sign up, you agree to the terms of use.</small>
-          <hr class="my-4">
-          <h2 class="fs-5 fw-bold mb-3">Or use a third-party</h2>
-          <button class="w-100 py-2 mb-2 btn btn-outline-secondary rounded-3" type="submit">
-            <svg class="bi me-1" width="16" height="16"><use xlink:href="#twitter"/></svg>
-            Sign up with Twitter
-          </button>
-          <button class="w-100 py-2 mb-2 btn btn-outline-primary rounded-3" type="submit">
-            <svg class="bi me-1" width="16" height="16"><use xlink:href="#facebook"/></svg>
-            Sign up with Facebook
-          </button>
-          <button class="w-100 py-2 mb-2 btn btn-outline-secondary rounded-3" type="submit">
-            <svg class="bi me-1" width="16" height="16"><use xlink:href="#github"/></svg>
-            Sign up with GitHub
-          </button>
+          <button class="w-100 mb-2 btn btn-lg rounded-3 btn-primary" type="submit" name="Submit">Sign up</button>
+          <div class="mt-4 text-center">
+          <a href='../index.php' class="btn btn-outline-secondary w-100 rounded-3">ย้อนกลับไปหน้าหลัก</a>
+        </div>
+        <div class="mt-4 text-center">
+          <a href='./index2.php' class="btn btn-outline-secondary w-100 rounded-3">เข้าสู่ระบบ</a>
+        </div>
         </form>
       </div>
     </div>
   </div>
 </div>
+<?php	
+	include_once("connect.php");
+	$sql = "SELECT * FROM `adminn` ORDER BY a_id ASC ";
+	$rs = mysqli_query($conn, $sql) ;
+	while ($data = mysqli_fetch_array($rs) ){
+	?>
+    	
+<?php } ?>
+<?php
+if (isset($_POST['Submit'])) {
+    $file_name = $_FILES['aemail']['name'];
+    $ext = substr($file_name, strpos($file_name, '.') + 1);
 
-<div class="b-example-divider"></div>
+    // แปลงรหัสผ่านเป็น MD5 ก่อนเก็บในฐานข้อมูล
+    $hashed_password = md5($_POST['apassword']);
+
+    // คำสั่ง SQL สำหรับเพิ่มข้อมูลลงฐานข้อมูล
+    $sql = "INSERT INTO `adminn` 
+            SET `a_name` = '{$_POST['aname']}',
+                `a_email` = '{$_POST['aemail']}',
+                `a_password` = '{$hashed_password}'";
+
+    // รันคำสั่ง SQL
+    if (mysqli_query($conn, $sql)) {
+        $idauto = mysqli_insert_id($conn);
+
+        // แจ้งเตือนสำเร็จและเปลี่ยนหน้า
+        echo "<script>";
+        echo "alert('ลงทะเบียนสำเร็จ กรุณากดปุ่มเข้าสู่ระบบ');";
+        echo "window.location='member2.php';";
+        echo "</script>";
+    } else {
+        // แจ้งเตือนกรณีมีข้อผิดพลาด
+        echo "<script>";
+        echo "alert('ลงทะเบียนไม่สำเร็จ กรุณาลองใหม่อีกครั้ง');";
+        echo "</script>";
+    }
+}
+
+?>
+
+<?php	
+	mysqli_close($conn);
+?>
 <script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
-
     </body>
 </html>
+

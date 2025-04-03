@@ -198,17 +198,17 @@ session_start();
   <form method="post" action="">
         <center>
       <img src="image/1.jpg" class="rounded-circle" width="60" height="60"> <br>
-    <h1 class="h3 mb-3 fw-normal">เข้าสู่ระบบ-อาจารย์</h1>
+    <h1 class="h3 mb-3 fw-normal">เข้าสู่ระบบ-นิสิต</h1>
     
 
       <div class="modal-body p-5 pt-0">
         <form class="">
           <div class="form-floating mb-3">
-            <input type="email" class="form-control" name="temail" placeholder="Email" autofocus required>
+            <input type="email" class="form-control" name="semail" placeholder="Email" autofocus required>
             <label for="floatingInput">Email address</label>
           </div>
           <div class="form-floating mb-3">
-          <input type="password" class="form-control" name="tpassword" placeholder="Password" autofocus required>
+          <input type="password" class="form-control" name="spassword" placeholder="Password" autofocus required>
             <label for="floatingPassword">Password</label>
             <div class="form-check text-start my-3">
       <input class="form-check-input" type="checkbox" value="remember-me" id="flexCheckDefault">
@@ -216,12 +216,12 @@ session_start();
         Remember me
       </label>
           </div>
-          <button class="w-100 mb-2 btn btn-lg rounded-3 btn-primary" type="submit" name="Submit">Sign in</button> 
+          <button class="w-100 mb-2 btn btn-lg rounded-3 btn-primary" type="submit" name="Submit">Sign in</button>
           <div class="mt-4 text-center">
-          <a href='../sign-in/member1.php' class="btn btn-outline-secondary w-100 rounded-3">ลงทะเบียน</a>
-        </div>
+          <a href='./member.php' class="btn btn-outline-secondary w-100 rounded-3">ลงทะเบียน</a>
+        </div> 
           <div class="mt-4 text-center">
-          <a href='../LifeSure-1.0.0/index.php' class="btn btn-outline-secondary w-100 rounded-3">ย้อนกลับไปหน้าหลัก</a>
+          <a href='../index.php' class="btn btn-outline-secondary w-100 rounded-3">ย้อนกลับไปหน้าหลัก</a>
         </div>
         </form>
       </div>
@@ -231,16 +231,16 @@ session_start();
 
 <?php
 		if(isset($_POST['Submit'])){
-			$sql = "SELECT * FROM `teacher` WHERE `t_email`='{$_POST['temail']}'AND t_password='".md5($_POST['tpassword'])."'";
+			$sql = "SELECT * FROM `student` WHERE `s_email`='{$_POST['semail']}'AND S_password='".md5($_POST['spassword'])."'";
 			$rs = mysqli_query($conn, $sql);
 			$num = mysqli_num_rows($rs);
 			
 			if ($num > 0){
 				$data = mysqli_fetch_array($rs) ;
-				$_SESSION[ 'tid' ] = $data[ 't_id' ] ;
-				$_SESSION[ 'tname' ] = $data[ 't_name' ] ;
+				$_SESSION[ 'sid' ] = $data[ 's_id' ] ;
+				$_SESSION[ 'sname' ] = $data[ 's_name' ] ;
 				echo "<script>";
-				echo "window.location = '../LifeSure-1.0.0/indexlec.php';";
+				echo "window.location = '../indexstudent.php';";
 				echo "</script>";
 			}else {
 				echo "<script>";
