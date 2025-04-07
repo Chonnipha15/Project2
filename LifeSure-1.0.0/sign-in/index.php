@@ -231,7 +231,7 @@ session_start();
 
 <?php
 		if(isset($_POST['Submit'])){
-			$sql = "SELECT * FROM `student` WHERE `s_email`='{$_POST['semail']}'AND S_password='".md5($_POST['spassword'])."'";
+			$sql = "SELECT * FROM `student` WHERE `s_email`='{$_POST['semail']}'AND s_password='".md5($_POST['spassword'])."'";
 			$rs = mysqli_query($conn, $sql);
 			$num = mysqli_num_rows($rs);
 			
