@@ -3,7 +3,7 @@
 
     <head>
         <meta charset="utf-8">
-        <title>LifeSure - Life Insurance Website Template</title>
+        <title>BC-DBIS</title>
         <meta content="width=device-width, initial-scale=1.0" name="viewport">
         <meta content="" name="keywords">
         <meta content="" name="description">
@@ -86,25 +86,15 @@
                             <div class="border-end border-primary pe-3">
                                 <a href="https://shorturl.asia/Lw9xf" class="text-muted small"><i class="fas fa-map-marker-alt text-primary me-2"></i>Find A Location</a>
                             </div>
+                            <div class="ps-3">
+                                <div class="text-muted small"><i class="bi bi-emoji-laughing-fill text-primary me-2"></i>ยินดีต้อนรับคุณ <?=$_SESSION['sname'];?></div>
+                            </div>
                         </div>
                     </div>
                     <div class="col-lg-4 text-center text-lg-end">
                         <div class="d-flex justify-content-end">
                             <div class="d-flex border-end border-primary pe-3">
-                                <a class="btn p-0 text-primary me-3" href="#"><i class="fab fa-facebook-f"></i></a>
-                                <a class="btn p-0 text-primary me-3" href="#"><i class="fab fa-twitter"></i></a>
-                                <a class="btn p-0 text-primary me-3" href="#"><i class="fab fa-instagram"></i></a>
-                                <a class="btn p-0 text-primary me-0" href="#"><i class="fab fa-linkedin-in"></i></a>
-                            </div>
-                            <div class="dropdown ms-3">
-                                <a href="#" class="dropdown-toggle text-dark" data-bs-toggle="dropdown"><small><i class="fas fa-globe-europe text-primary me-2"></i> English</small></a>
-                                <div class="dropdown-menu rounded">
-                                    <a href="#" class="dropdown-item">English</a>
-                                    <a href="#" class="dropdown-item">Bangla</a>
-                                    <a href="#" class="dropdown-item">French</a>
-                                    <a href="#" class="dropdown-item">Spanish</a>
-                                    <a href="#" class="dropdown-item">Arabic</a>
-                                </div>
+                                <a class="btn p-0 text-primary me-3" href="https://www.facebook.com/bc.mbs.thailand"><i class="fab fa-facebook-f"></i></a>
                             </div>
                         </div>
                     </div>
