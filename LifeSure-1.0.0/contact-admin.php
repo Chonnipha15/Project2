@@ -86,9 +86,6 @@
                             <div class="border-end border-primary pe-3">
                                 <a href="https://shorturl.asia/Lw9xf" class="text-muted small"><i class="fas fa-map-marker-alt text-primary me-2"></i>Find A Location</a>
                             </div>
-                            <div class="ps-3">
-                                <div class="text-muted small"><i class="bi bi-emoji-laughing-fill text-primary me-2"></i>ยินดีต้อนรับคุณ <?=$_SESSION['sname'];?></div>
-                            </div>
                         </div>
                     </div>
                     <div class="col-lg-4 text-center text-lg-end">
