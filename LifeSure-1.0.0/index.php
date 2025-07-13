@@ -132,7 +132,7 @@
             </div>
         </div>
         <a href="performance.php" class="nav-item nav-link">ผลงานนิสิต</a>
-        <a href="contact-admin.php" class="nav-item nav-link">ติดต่อแอดมิน</a>
+        <a href="contact.php" class="nav-item nav-link">ติดต่อแอดมิน</a>
 </div>
 </div>
 <div class="btn-group" role="group">
