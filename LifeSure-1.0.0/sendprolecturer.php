@@ -165,10 +165,12 @@ $rs = mysqli_query($conn, $sql);
 <div class="modal fade" id="fileModal" tabindex="-1" aria-labelledby="fileModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="fileModalLabel">เปิดไฟล์</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
+           <td width="20%" style="text-align: center; vertical-align: middle;">
+    <button class="btn btn-primary btn-sm" onclick="openFileModal('<?= $data['p_file']; ?>')">
+        เปิดไฟล์
+    </button>
+</td>
+
             <div class="modal-body">
                 <iframe id="fileIframe" src="" width="100%" height="500px"></iframe>
             </div>
