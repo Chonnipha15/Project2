@@ -159,26 +159,8 @@ $rs = mysqli_query($conn, $sql);
                         <td width="35%" style="text-align: center; vertical-align: middle;"><?= $data['p_idstudent']; ?></td>
                         <td width="20%" style="text-align: center; vertical-align: middle;">
                         <a href="<?= $data['p_file']; ?>" target="_blank"><?= $data['p_file']; ?></a>
-                        
                         </td>
-<!-- Modal -->
-<div class="modal fade" id="fileModal" tabindex="-1" aria-labelledby="fileModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-           <td width="20%" style="text-align: center; vertical-align: middle;">
-    <button class="btn btn-primary btn-sm" onclick="openFileModal('<?= $data['p_file']; ?>')">
-        เปิดไฟล์
-    </button>
-</td>
 
-            <div class="modal-body">
-                <iframe id="fileIframe" src="" width="100%" height="500px"></iframe>
-            </div>
-        </div>
-    </div>
-</div>
-
-                        </td>
                         <td width="25%" style="text-align: center; vertical-align: middle;"><?= $data['created_at']; ?></td>
                         <td width="25%" style="text-align: center; vertical-align: middle;">
                             <div class="d-flex gap-2 justify-content-center">
@@ -200,25 +182,6 @@ $rs = mysqli_query($conn, $sql);
         </div>
     </div>
 </div>
-
-<script>
-    // ฟังก์ชั่นสำหรับการเปลี่ยนสถานะ
-    function changeStatus(projectId, status) {
-        if (confirm("คุณแน่ใจหรือไม่ที่จะเปลี่ยนสถานะเป็น '" + status + "'?")) {
-            window.location.href = "change_status.php?p_id=" + projectId + "&status=" + status;
-        }
-    }
-    
-    function openFileModal(fileUrl) {
-    const iframe = document.getElementById('fileIframe');
-    iframe.src = fileUrl;
-
-    const modal = new bootstrap.Modal(document.getElementById('fileModal'));
-    modal.show();
-}
-
-</script>
-
 
 <style>
     /* ปรับขนาดของปุ่มให้เล็กลงอีก */
